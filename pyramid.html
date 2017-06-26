@@ -1,0 +1,35 @@
+<html>
+    <head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.2/svg.min.js"></script>
+    </head>
+
+    <body>
+	Draws a pyramid with a variable number of segments.
+
+	<div id="drawing"></div>
+
+	<script>
+if (SVG.supported) {
+    var draw = SVG('drawing').size(1300, 1300)
+    const xCenter = 400
+    const yTop = 10
+    const height = 400
+    const width = 400
+    const layers = 3
+
+    for(var currentLayer = 1; currentLayer <= layers; currentLayer++) {
+	draw.polygon([
+	    [xCenter + ((currentLayer - 1) / layers) * width, yTop + ((currentLayer - 1) * height / layers)],
+	    [xCenter + (currentLayer / layers) * width, yTop + (currentLayer * height / layers)],
+	    [xCenter - (currentLayer / layers) * width, yTop + (currentLayer * height / layers)],
+	    [xCenter - ((currentLayer - 1) / layers) * width, yTop + ((currentLayer - 1) * height / layers)]
+	])
+	    .fill('none')
+	    .stroke({ width: 1 })
+    }
+} else {
+    alert('SVG not supported')
+}
+	</script>
+    </body>
+</html>
