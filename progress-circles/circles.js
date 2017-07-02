@@ -1,9 +1,14 @@
 if (SVG.supported) {
     var draw = SVG('drawing').size(800, 600)
 
-    progressCircle(180, 20, 'Build').animate();
-    progressCircle(180, 60, 'Test');
-    progressCircle(180, 100, 'Deploy Staging');
+    const build = progressCircle(180, 20, 'Build');
+    const test = progressCircle(180, 60, 'Test');
+    const deploy = progressCircle(180, 100, 'Deploy');
+
+    build
+	.animate()
+	.then(() => test.animate())
+	.then(() => deploy.animate());
 
     function progressCircle(x, y, description) {
 	const circle = draw.circle(20)
