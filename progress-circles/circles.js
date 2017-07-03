@@ -1,14 +1,18 @@
 if (SVG.supported) {
-    var draw = SVG('drawing').size(800, 600)
+    const draw = SVG('drawing').size(800, 600)
 
     const build = progressCircle(180, 20, 'Build');
     const test = progressCircle(180, 60, 'Test');
-    const deploy = progressCircle(180, 100, 'Deploy');
+    const deploy = progressCircle(180, 100, 'Deploy Staging');
+    const functionalTest = progressCircle(180, 140, 'Functional Test');
+    const deployProd = progressCircle(180, 180, 'Deploy Production');
 
     build
 	.animate()
 	.then(() => test.animate())
-	.then(() => deploy.animate());
+	.then(() => deploy.animate())
+	.then(() => functionalTest.animate())
+	.then(() => deployProd.animate());
 
     function progressCircle(x, y, description) {
 	const circle = draw.circle(20)
@@ -19,8 +23,8 @@ if (SVG.supported) {
 	    .text(description)
 	    .font({family: 'Helvetica', size: 16})
 	    .fill('#1a535c')
-	    .x(x + 40)
-	    .y(y + 5);
+	    .x(x + 32)
+	    .y(y + 4);
 
 	const animate = () => {
 	    const pulse = draw.circle(28)
@@ -42,7 +46,7 @@ if (SVG.supported) {
 
 	const check = () => {
 	    const tickStart = [x + 5, y + 10];
-	    const tickBottom = [x + 8, y + 14];
+	    const tickBottom = [x + 9, y + 14];
 	    const tickEnd = [x + 14, y + 5];
 	    draw.polyline([tickStart])
 		.fill('none')
